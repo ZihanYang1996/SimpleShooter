@@ -3,8 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputActionValue.h"
 #include "GameFramework/Character.h"
 #include "ShooterCharacter.generated.h"
+
+struct FInputActionValue;
 
 UCLASS()
 class SIMPLESHOOTER_API AShooterCharacter : public ACharacter
@@ -19,11 +22,16 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void Move(const FInputActionValue& Value);
+
+private:
+	UPROPERTY(EditAnywhere, Category="Movement")
+	float MovementSpeed = 100.f;
 };
