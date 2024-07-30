@@ -34,4 +34,10 @@ public:
 private:
 	UPROPERTY(EditAnywhere, Category="Movement")
 	float MovementSpeed = 100.f;
+
+	UPROPERTY(EditAnywhere, Category="Components")
+	class USpringArmComponent* SpringArm;
+
+	UPROPERTY(EditAnywhere, Category="Components")
+	class UCameraComponent* Camera;
 };
