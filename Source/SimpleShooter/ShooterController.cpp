@@ -29,7 +29,7 @@ void AShooterController::SetupInputComponent()
 		                                   &AShooterController::Jump);
 		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Completed, this,
 		                                   &AShooterController::StopJumping);
-		EnhancedInputComponent->BindAction(IA_Sprint, ETriggerEvent::Triggered, this, &AShooterController::StartSprint);
+		EnhancedInputComponent->BindAction(IA_Sprint, ETriggerEvent::Started, this, &AShooterController::StartSprint);
 		EnhancedInputComponent->BindAction(IA_Sprint, ETriggerEvent::Completed, this, &AShooterController::EndSprint);
 	}
 }

@@ -66,12 +66,12 @@ void AShooterCharacter::Move(const FInputActionValue& Value)
 
 void AShooterCharacter::StartSprint()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Start Sprint"));
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Start Sprint"));
 	CharacterMovement->MaxWalkSpeed = SprintSpeed;
 }
 
 void AShooterCharacter::EndSprint()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("End Sprint"));
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("End Sprint"));
 	CharacterMovement->MaxWalkSpeed = MoveSpeed;
 }
