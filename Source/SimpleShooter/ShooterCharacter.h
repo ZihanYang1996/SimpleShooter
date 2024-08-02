@@ -8,6 +8,9 @@
 #include "ShooterCharacter.generated.h"
 
 struct FInputActionValue;
+class USpringArmComponent;
+class UCameraComponent;
+class UCharacterMovementComponent;
 
 UCLASS()
 class SIMPLESHOOTER_API AShooterCharacter : public ACharacter
@@ -31,13 +34,23 @@ public:
 
 	void Move(const FInputActionValue& Value);
 
+	void StartSprint();
+
+	void EndSprint();
+
 private:
 	UPROPERTY(EditAnywhere, Category="Movement")
-	float MovementSpeed = 100.f;
+	float MoveSpeed = 150.f;
+
+	UPROPERTY(EditAnywhere, Category="Movement")
+	float SprintSpeed = 350.f;
 
 	UPROPERTY(EditAnywhere, Category="Components")
-	class USpringArmComponent* SpringArm;
+	USpringArmComponent* SpringArm;
 
 	UPROPERTY(EditAnywhere, Category="Components")
-	class UCameraComponent* Camera;
+	UCameraComponent* Camera;
+
+	UCharacterMovementComponent* CharacterMovement;
+	
 };

@@ -27,6 +27,8 @@ public:
 	void Look(const FInputActionValue& Value);
 	void Jump();
 	void StopJumping();
+	void StartSprint();
+	void EndSprint();
 
 protected:
 	virtual void BeginPlay() override;
@@ -43,6 +45,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* IA_Jump;
+
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* IA_Sprint;
 	
 	UPROPERTY(EditAnywhere, Category="Movement")
 	FVector2D ControllerRotationSpeed = FVector2D(50.f, 50.f);

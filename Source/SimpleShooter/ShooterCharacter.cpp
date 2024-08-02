@@ -4,6 +4,7 @@
 #include "ShooterCharacter.h"
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
 // Sets default values
@@ -29,6 +30,9 @@ AShooterCharacter::AShooterCharacter()
 void AShooterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	CharacterMovement = GetCharacterMovement();
+	CharacterMovement->MaxWalkSpeed = MoveSpeed;
 }
 
 // Called every frame
@@ -46,8 +50,18 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 void AShooterCharacter::Move(const FInputActionValue& Value)
 {
 	FVector2D MoveInput = Value.Get<FVector2D>();
-	FVector ForwardMovement = GetActorForwardVector() * MoveInput.Y * MovementSpeed * GetWorld()->DeltaTimeSeconds;
-	FVector RightMovement = GetActorRightVector() * MoveInput.X * MovementSpeed * GetWorld()->DeltaTimeSeconds;
-	AddMovementInput(ForwardMovement + RightMovement);
+	AddMovementInput(GetActorForwardVector(), MoveInput.Y);
+	AddMovementInput(GetActorRightVector(), MoveInput.X);
 }
 
+void AShooterCharacter::StartSprint()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Start Sprint"));
+	CharacterMovement->MaxWalkSpeed = SprintSpeed;
+}
+
+void AShooterCharacter::EndSprint()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("End Sprint"));
+	CharacterMovement->MaxWalkSpeed = MoveSpeed;
+}
