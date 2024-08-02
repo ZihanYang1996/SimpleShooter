@@ -3,6 +3,7 @@
 
 #include "Gun.h"
 
+#include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -60,5 +61,24 @@ void AGun::SpawnBullet()
 	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Mesh, TEXT("MuzzleFlashSocket"));
 
 	// Line trace
+	FVector Location;
+	FRotator Rotation;
+	if (ACharacter* OwnerCharacter = Cast<ACharacter>(GetOwner()))
+	{
+		if (AController* Controller = OwnerCharacter->GetController())
+		{
+			Controller->GetPlayerViewPoint(Location, Rotation);
+		}
+	}
+
+	FVector End = Location + Rotation.Vector() * 10000.f;
+	FHitResult HitResult;
 	
+	bool bIsHit = GetWorld()->LineTraceSingleByChannel(HitResult, Location, End, ECollisionChannel::ECC_GameTraceChannel1);
+
+	// Draw debug sphere at hit location
+	if (bIsHit)
+	{
+		DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.f, 12, FColor::Red, false, 2.f);
+	}
 }
