@@ -13,4 +13,11 @@ UCLASS()
 class SIMPLESHOOTER_API AShooterGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+
+protected:
+	virtual void BeginPlay() override;
+
+public:
+	UFUNCTION(BlueprintImplementableEvent, Category="HUD")
+	void SetupHUD();
 };

@@ -3,3 +3,8 @@
 
 #include "ShooterGameMode.h"
 
+void AShooterGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+	SetupHUD();
+}
