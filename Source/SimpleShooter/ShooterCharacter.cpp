@@ -3,6 +3,7 @@
 
 #include "ShooterCharacter.h"
 #include "EnhancedInputComponent.h"
+#include "Gun.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -33,6 +34,15 @@ void AShooterCharacter::BeginPlay()
 
 	CharacterMovement = GetCharacterMovement();
 	CharacterMovement->MaxWalkSpeed = MoveSpeed;
+
+	// Hide the defualt gun in the character's mesh
+	GetMesh()->HideBoneByName(TEXT("weapon_r"), EPhysBodyOp::PBO_None);
+
+	// Spawn the gun
+	Gun = GetWorld()->SpawnActor<AGun>(GunClass);
+	// Attach the gun to the character's hand
+	Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("weaponSocket"));
+	Gun->SetOwner(this);
 }
 
 // Called every frame

@@ -7,6 +7,7 @@
 #include "GameFramework/Character.h"
 #include "ShooterCharacter.generated.h"
 
+class AGun;
 struct FInputActionValue;
 class USpringArmComponent;
 class UCameraComponent;
@@ -50,6 +51,12 @@ private:
 
 	UPROPERTY(EditAnywhere, Category="Components")
 	UCameraComponent* Camera;
+
+	UPROPERTY(EditAnywhere, Category="Gun")
+	TSubclassOf<AGun> GunClass;
+
+	AGun* Gun;
+	
 
 	UCharacterMovementComponent* CharacterMovement;
 	
