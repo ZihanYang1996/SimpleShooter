@@ -3,6 +3,8 @@
 
 #include "Gun.h"
 
+#include "Kismet/GameplayStatics.h"
+
 // Sets default values
 AGun::AGun()
 {
@@ -25,9 +27,38 @@ void AGun::BeginPlay()
 }
 
 // Called every frame
-void AGun::Tick(float DeltaTime)
+void AGun::Tick(float DeltaTime)	
 {
 	Super::Tick(DeltaTime);
 
 }
 
+void AGun::Fire()
+{
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Fire!"));
+	if (!bIsFiring)
+	{
+		bIsFiring = true;
+		GetWorld()->GetTimerManager().SetTimer(FireRateTimerHandle, this, &AGun::SpawnBullet, FireRate, true, 0.f);
+	}
+}
+
+void AGun::StopFire()
+{
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Stop Fire!"));
+	if (bIsFiring)
+	{
+		bIsFiring = false;
+		GetWorld()->GetTimerManager().ClearTimer(FireRateTimerHandle);
+	}
+}
+
+void AGun::SpawnBullet()
+{
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Spawn Bullet!"));
+	// Spawn muzzle flash
+	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Mesh, TEXT("MuzzleFlashSocket"));
+
+	// Line trace
+	
+}

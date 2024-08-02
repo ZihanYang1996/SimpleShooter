@@ -75,3 +75,13 @@ void AShooterCharacter::EndSprint()
 	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("End Sprint"));
 	CharacterMovement->MaxWalkSpeed = MoveSpeed;
 }
+
+void AShooterCharacter::PullTrigger()
+{
+	Gun->Fire();
+}
+
+void AShooterCharacter::ReleaseTrigger()
+{
+	Gun->StopFire();
+}

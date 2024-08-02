@@ -31,6 +31,8 @@ void AShooterController::SetupInputComponent()
 		                                   &AShooterController::StopJumping);
 		EnhancedInputComponent->BindAction(IA_Sprint, ETriggerEvent::Started, this, &AShooterController::StartSprint);
 		EnhancedInputComponent->BindAction(IA_Sprint, ETriggerEvent::Completed, this, &AShooterController::EndSprint);
+		EnhancedInputComponent->BindAction(IA_Fire, ETriggerEvent::Started, this, &AShooterController::PullTrigger);
+		EnhancedInputComponent->BindAction(IA_Fire, ETriggerEvent::Completed, this, &AShooterController::ReleaseTrigger);
 	}
 }
 
@@ -90,5 +92,21 @@ void AShooterController::EndSprint()
 	if (ControlledCharacter)
 	{
 		ControlledCharacter->EndSprint();
+	}
+}
+
+void AShooterController::PullTrigger()
+{
+	if (ControlledCharacter)
+	{
+		ControlledCharacter->PullTrigger();
+	}
+}
+
+void AShooterController::ReleaseTrigger()
+{
+	if (ControlledCharacter)
+	{
+		ControlledCharacter->ReleaseTrigger();
 	}
 }

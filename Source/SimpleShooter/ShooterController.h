@@ -29,6 +29,8 @@ public:
 	void StopJumping();
 	void StartSprint();
 	void EndSprint();
+	void PullTrigger();
+	void ReleaseTrigger();
 
 protected:
 	virtual void BeginPlay() override;
@@ -48,7 +50,10 @@ private:
 
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* IA_Sprint;
-	
+
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* IA_Fire;
+
 	UPROPERTY(EditAnywhere, Category="Movement")
 	FVector2D ControllerRotationSpeed = FVector2D(50.f, 50.f);
 

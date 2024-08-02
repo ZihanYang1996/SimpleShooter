@@ -25,10 +25,26 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void Fire();
+
+	void StopFire();
+
+	void SpawnBullet();
+
 private:
 	UPROPERTY(EditAnywhere)
 	USceneComponent* Root;
 
 	UPROPERTY(EditAnywhere)
 	USkeletalMeshComponent* Mesh;
+
+	UPROPERTY(EditAnywhere)
+	float FireRate = 0.05f;
+
+	UPROPERTY(EditAnywhere)
+	UParticleSystem* MuzzleFlash;
+
+	bool bIsFiring = false;
+
+	FTimerHandle FireRateTimerHandle;
 };

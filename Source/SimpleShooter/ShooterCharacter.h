@@ -39,6 +39,10 @@ public:
 
 	void EndSprint();
 
+	void PullTrigger();
+
+	void ReleaseTrigger();
+
 private:
 	UPROPERTY(EditAnywhere, Category="Movement")
 	float MoveSpeed = 150.f;
