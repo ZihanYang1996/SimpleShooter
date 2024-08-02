@@ -8,12 +8,13 @@
 
 class USceneComponent;
 class USkeletalMeshComponent;
+
 UCLASS()
 class SIMPLESHOOTER_API AGun : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AGun();
 
@@ -21,7 +22,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -43,6 +44,9 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	UParticleSystem* MuzzleFlash;
+
+	UPROPERTY(EditAnywhere)
+	UParticleSystem* ImpactEffect;
 
 	bool bIsFiring = false;
 
