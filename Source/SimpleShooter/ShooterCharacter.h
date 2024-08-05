@@ -7,6 +7,7 @@
 #include "GameFramework/Character.h"
 #include "ShooterCharacter.generated.h"
 
+class UHealthComponent;
 class AGun;
 struct FInputActionValue;
 class USpringArmComponent;
@@ -43,6 +44,8 @@ public:
 
 	void ReleaseTrigger();
 
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
 private:
 	UPROPERTY(EditAnywhere, Category="Movement")
 	float MoveSpeed = 150.f;
@@ -60,6 +63,8 @@ private:
 	TSubclassOf<AGun> GunClass;
 
 	AGun* Gun;
+
+	UHealthComponent* HealthComponent;
 	
 
 	UCharacterMovementComponent* CharacterMovement;

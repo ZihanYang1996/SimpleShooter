@@ -48,6 +48,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	UParticleSystem* ImpactEffect;
 
+	UPROPERTY(EditAnywhere)
+	float Damage = 10.f;
+
 	bool bIsFiring = false;
 
 	FTimerHandle FireRateTimerHandle;

@@ -3,6 +3,7 @@
 
 #include "Gun.h"
 
+#include "Engine/DamageEvents.h"
 #include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -88,5 +89,11 @@ void AGun::SpawnBullet()
 		                                       HitResult.ImpactPoint, ShotDirection.Rotation(),
 		                                       EAttachLocation::KeepWorldPosition);
 		// UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, HitResult.ImpactPoint, ShotDirection.Rotation());
+
+		// Apply damage
+		// UDamageType::StaticClass() or nullptr
+		FPointDamageEvent DamageEvent(Damage, HitResult, ShotDirection, UDamageType::StaticClass());
+		// GetOwner()->GetInstigatorController() or Controller from above
+		HitResult.GetActor()->TakeDamage(Damage, DamageEvent, GetOwner()->GetInstigatorController(), this);  
 	}
 }

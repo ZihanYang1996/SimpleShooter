@@ -4,6 +4,7 @@
 #include "ShooterCharacter.h"
 #include "EnhancedInputComponent.h"
 #include "Gun.h"
+#include "HealthComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -43,6 +44,9 @@ void AShooterCharacter::BeginPlay()
 	// Attach the gun to the character's hand
 	Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("weaponSocket"));
 	Gun->SetOwner(this);
+
+	// Find HealthComponent
+	HealthComponent = FindComponentByClass<UHealthComponent>();
 }
 
 // Called every frame
@@ -84,4 +88,14 @@ void AShooterCharacter::PullTrigger()
 void AShooterCharacter::ReleaseTrigger()
 {
 	Gun->StopFire();
+}
+
+float AShooterCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	float DamageApplied = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	if (DamageApplied > 0.f)
+	{
+		HealthComponent->DecreaseHealth(DamageApplied);
+	}
+	return DamageApplied;
 }
