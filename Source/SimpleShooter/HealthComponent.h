@@ -26,6 +26,8 @@ public:
 
 	void DecreaseHealth(float Amount);
 
+	bool IsDead() const;
+
 private:
 	UPROPERTY(EditAnywhere, Category="Health")
 	float MaxHealth;

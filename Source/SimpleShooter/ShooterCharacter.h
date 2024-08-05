@@ -46,6 +46,9 @@ public:
 
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
+	UFUNCTION(BlueprintPure)
+	bool IsDead() const;
+
 private:
 	UPROPERTY(EditAnywhere, Category="Movement")
 	float MoveSpeed = 150.f;

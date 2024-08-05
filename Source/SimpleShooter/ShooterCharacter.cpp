@@ -93,9 +93,18 @@ void AShooterCharacter::ReleaseTrigger()
 float AShooterCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	float DamageApplied = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-	if (DamageApplied > 0.f)
+	if (DamageApplied > 0.f && HealthComponent)
 	{
 		HealthComponent->DecreaseHealth(DamageApplied);
 	}
 	return DamageApplied;
+}
+
+bool AShooterCharacter::IsDead() const
+{
+	if (!HealthComponent)
+	{
+		return false;
+	}
+	return HealthComponent->IsDead();
 }
