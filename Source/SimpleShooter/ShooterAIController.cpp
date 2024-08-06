@@ -10,13 +10,20 @@ void AShooterAIController::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
-
-	SetFocus(PlayerPawn);
 }
 
 void AShooterAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	MoveToActor(PlayerPawn, 100);
+	
+	if (LineOfSightTo(PlayerPawn))
+	{
+		MoveToActor(PlayerPawn, 100);
+		SetFocus(PlayerPawn);
+	}
+	else
+	{
+		ClearFocus(EAIFocusPriority::Gameplay);
+		StopMovement();
+	}
 }
