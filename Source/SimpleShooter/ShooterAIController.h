@@ -22,4 +22,6 @@ public:
 
 private:
 	APawn* PlayerPawn;
+
+	float AcceptanceRadius = 100.f;
 };

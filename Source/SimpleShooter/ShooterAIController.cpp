@@ -18,7 +18,7 @@ void AShooterAIController::Tick(float DeltaTime)
 	
 	if (LineOfSightTo(PlayerPawn))
 	{
-		MoveToActor(PlayerPawn, 100);
+		MoveToActor(PlayerPawn, AcceptanceRadius);
 		SetFocus(PlayerPawn);
 	}
 	else
