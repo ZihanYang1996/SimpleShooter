@@ -72,8 +72,13 @@ void AGun::SpawnBullet()
 	FVector End = Location + Rotation.Vector() * 10000.f;
 	FHitResult HitResult;
 
+	// Ignore owner
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+	Params.AddIgnoredActor(GetOwner());
+
 	bool bIsHit = GetWorld()->LineTraceSingleByChannel(HitResult, Location, End,
-	                                                   ECollisionChannel::ECC_GameTraceChannel1);
+	                                                   ECollisionChannel::ECC_GameTraceChannel1, Params);
 
 	// Draw debug sphere at hit location
 	// if (bIsHit)
