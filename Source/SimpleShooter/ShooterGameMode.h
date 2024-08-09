@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Blueprint/UserWidget.h"
 #include "GameFramework/GameModeBase.h"
 #include "ShooterGameMode.generated.h"
 
@@ -25,4 +26,7 @@ public:
 	void DisplayLoseScreen();
 
 	virtual void PawnKilled(APawn* PawnKilled);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="My Widgets")
+	TSubclassOf<UUserWidget> MyWidgetClass;
 };
