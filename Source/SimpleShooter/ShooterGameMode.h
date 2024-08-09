@@ -25,8 +25,11 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category="HUD")
 	void DisplayLoseScreen();
 
+	UFUNCTION(BlueprintImplementableEvent, Category="HUD")
+	void DisplayWinScreen();	
+
 	virtual void PawnKilled(APawn* PawnKilled);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="My Widgets")
-	TSubclassOf<UUserWidget> MyWidgetClass;
+	UUserWidget* CurrentWidgetOnViewport;
 };
