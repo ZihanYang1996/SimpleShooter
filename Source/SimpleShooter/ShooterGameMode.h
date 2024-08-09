@@ -21,5 +21,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category="HUD")
 	void SetupHUD();
 
+	UFUNCTION(BlueprintImplementableEvent, Category="HUD")
+	void DisplayLoseScreen();
+
 	virtual void PawnKilled(APawn* PawnKilled);
 };

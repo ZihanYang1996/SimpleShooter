@@ -11,6 +11,7 @@ void AKillEmAllGameMode::PawnKilled(APawn* PawnKilled)
 	if (PlayerController != nullptr)
 	{
 		PlayerController->GameHasEnded(nullptr, false);
+		DisplayLoseScreen();
 	}
 
 }
