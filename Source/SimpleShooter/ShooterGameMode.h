@@ -21,6 +21,5 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category="HUD")
 	void SetupHUD();
 
-protected:
 	virtual void PawnKilled(APawn* PawnKilled);
 };

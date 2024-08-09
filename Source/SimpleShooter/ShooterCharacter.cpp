@@ -5,6 +5,7 @@
 #include "EnhancedInputComponent.h"
 #include "Gun.h"
 #include "HealthComponent.h"
+#include "ShooterGameMode.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -102,6 +103,12 @@ float AShooterCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dama
 	{
 		DetachFromControllerPendingDestroy();
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+		AShooterGameMode* GameMode = GetWorld()->GetAuthGameMode<AShooterGameMode>();
+		if (GameMode)
+		{
+			GameMode->PawnKilled(this);
+		}
 	}
 	return DamageApplied;
 }
