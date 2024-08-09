@@ -6,6 +6,7 @@
 #include "Gun.h"
 #include "HealthComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
@@ -96,6 +97,11 @@ float AShooterCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dama
 	if (DamageApplied > 0.f && HealthComponent)
 	{
 		HealthComponent->DecreaseHealth(DamageApplied);
+	}
+	if (IsDead())
+	{
+		DetachFromControllerPendingDestroy();
+		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
 	return DamageApplied;
 }
