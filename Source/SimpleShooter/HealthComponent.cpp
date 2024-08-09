@@ -37,7 +37,7 @@ void UHealthComponent::DecreaseHealth(float Amount)
 {
 	Health -= Amount;
 	Health = FMath::Clamp(Health, 0.f, MaxHealth);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Health: %f"), Health));
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Health: %f"), Health));
 }
 
 bool UHealthComponent::IsDead() const

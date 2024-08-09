@@ -58,4 +58,12 @@ private:
 	FVector2D ControllerRotationSpeed = FVector2D(50.f, 50.f);
 
 	AShooterCharacter* ControlledCharacter;
+
+	UPROPERTY(EditAnywhere)
+	float RestartDelay = 5.f;
+
+	FTimerHandle RestartTimer;
+
+public:
+	virtual void GameHasEnded(AActor* EndGameFocus, bool bIsWinner) override;
 };

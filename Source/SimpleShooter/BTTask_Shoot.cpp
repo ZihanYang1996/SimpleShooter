@@ -20,7 +20,7 @@ EBTNodeResult::Type UBTTask_Shoot::ExecuteTask(UBehaviorTreeComponent& OwnerComp
 	{
 		if (!OwnerComp.GetBlackboardComponent()->GetValueAsBool(TEXT("IsShooting")))
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Shoot!"));
+			// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Shoot!"));
 			AIControlledCharacter->PullTrigger();
 			OwnerComp.GetBlackboardComponent()->SetValueAsBool(TEXT("IsShooting"), true);
 		}

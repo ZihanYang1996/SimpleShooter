@@ -31,7 +31,7 @@ EBTNodeResult::Type UBTTask_MoveToStopShooting::ExecuteTask(UBehaviorTreeCompone
 
 			if (DistanceToPlayer > MyMemory->AcceptanceRadius)
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Moving and stop shooting"));
+				// GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Moving and stop shooting"));
 				MyMemory->AIControlledCharacter->ReleaseTrigger();
 				OwnerComp.GetBlackboardComponent()->SetValueAsBool(TEXT("IsShooting"), false);
 
@@ -47,7 +47,7 @@ EBTNodeResult::Type UBTTask_MoveToStopShooting::ExecuteTask(UBehaviorTreeCompone
 void UBTTask_MoveToStopShooting::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
 	BT_MoveToStopShooting* MyMemory = (BT_MoveToStopShooting*)(NodeMemory);
-	if (!MyMemory->AIController)
+	if (!MyMemory->AIController || !MyMemory->AIControlledCharacter)
 	{
 		FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
 	}
@@ -55,7 +55,7 @@ void UBTTask_MoveToStopShooting::TickTask(UBehaviorTreeComponent& OwnerComp, uin
 	FVector PlayerLocation = OwnerComp.GetBlackboardComponent()->GetValueAsVector(GetSelectedBlackboardKey());
 	float DistanceToPlayer = FVector::Dist(MyMemory->AIControlledCharacter->GetActorLocation(), PlayerLocation);
 
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Distance to player: %f"), DistanceToPlayer));
+	// GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Distance to player: %f"), DistanceToPlayer));
 	if (DistanceToPlayer <= MyMemory->AcceptanceRadius)
 	{
 		MyMemory->AIController->StopMovement();
