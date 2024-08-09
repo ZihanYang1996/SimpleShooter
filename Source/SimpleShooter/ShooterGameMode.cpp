@@ -8,3 +8,8 @@ void AShooterGameMode::BeginPlay()
 	Super::BeginPlay();
 	SetupHUD();
 }
+
+void AShooterGameMode::PawnKilled(APawn* PawnKilled)
+{
+	// Abstract method, to be implemented by child classes
+}
