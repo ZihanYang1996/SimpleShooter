@@ -35,13 +35,13 @@ void AShooterAIController::Tick(float DeltaTime)
 	// 	StopMovement();
 	// }
 
-	if (LineOfSightTo(PlayerPawn) && BehaviorTree)
-	{
-		GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerLocation"), PlayerPawn->GetActorLocation());
-		GetBlackboardComponent()->SetValueAsVector(TEXT("LastSeenLocation"), PlayerPawn->GetActorLocation());		
-	}
-	else if (BehaviorTree)
-	{
-		GetBlackboardComponent()->ClearValue(TEXT("PlayerLocation"));
-	}
+	// if (LineOfSightTo(PlayerPawn) && BehaviorTree)
+	// {
+	// 	GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerLocation"), PlayerPawn->GetActorLocation());
+	// 	GetBlackboardComponent()->SetValueAsVector(TEXT("LastSeenLocation"), PlayerPawn->GetActorLocation());		
+	// }
+	// else if (BehaviorTree)
+	// {
+	// 	GetBlackboardComponent()->ClearValue(TEXT("PlayerLocation"));
+	// }
 }

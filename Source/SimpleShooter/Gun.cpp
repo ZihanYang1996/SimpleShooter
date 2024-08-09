@@ -94,6 +94,9 @@ void AGun::SpawnBullet()
 		// UDamageType::StaticClass() or nullptr
 		FPointDamageEvent DamageEvent(Damage, HitResult, ShotDirection, UDamageType::StaticClass());
 		// GetOwner()->GetInstigatorController() or Controller from above
-		HitResult.GetActor()->TakeDamage(Damage, DamageEvent, GetOwner()->GetInstigatorController(), this);  
+		if (AActor* HitActor = HitResult.GetActor())
+		{
+			HitActor->TakeDamage(Damage, DamageEvent, GetOwner()->GetInstigatorController(), this);
+		}
 	}
 }
