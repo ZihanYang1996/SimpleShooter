@@ -5,6 +5,7 @@
 #include "EnhancedInputComponent.h"
 #include "Gun.h"
 #include "HealthComponent.h"
+#include "ShooterAIController.h"
 #include "ShooterGameMode.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -107,7 +108,7 @@ float AShooterCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dama
 		{
 			GameMode->PawnKilled(this);
 		}
-
+		ReleaseTrigger();
 		DetachFromControllerPendingDestroy();
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
