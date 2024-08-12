@@ -16,26 +16,25 @@ UBTTask_MoveToStopShooting::UBTTask_MoveToStopShooting()
 EBTNodeResult::Type UBTTask_MoveToStopShooting::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	Super::ExecuteTask(OwnerComp, NodeMemory);
-
-	BT_MoveToStopShooting* MyMemory = (BT_MoveToStopShooting*)(NodeMemory);
-	MyMemory->AIController = OwnerComp.GetAIOwner();
-	if (MyMemory->AIController)
+	BT_MoveToStopShooting* MyMemory = CastInstanceNodeMemory<BT_MoveToStopShooting>(NodeMemory);
+	AAIController* AIController = OwnerComp.GetAIOwner();
+	if (AIController)
 	{
-		MyMemory->AIControlledCharacter = Cast<AShooterCharacter>(MyMemory->AIController->GetPawn());
-		if (MyMemory->AIControlledCharacter)
+		AShooterCharacter* AICharacter = Cast<AShooterCharacter>(AIController->GetPawn());
+		if (AICharacter)
 		{
 			MyMemory->AcceptanceRadius = AcceptanceRadius;
 
 			FVector PlayerLocation = OwnerComp.GetBlackboardComponent()->GetValueAsVector(GetSelectedBlackboardKey());
-			float DistanceToPlayer = FVector::Dist(MyMemory->AIControlledCharacter->GetActorLocation(), PlayerLocation);
+			float DistanceToPlayer = FVector::Dist(AICharacter->GetActorLocation(), PlayerLocation);
 
 			if (DistanceToPlayer > MyMemory->AcceptanceRadius)
 			{
 				// GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Moving and stop shooting"));
-				MyMemory->AIControlledCharacter->ReleaseTrigger();
+				AICharacter->ReleaseTrigger();
 				OwnerComp.GetBlackboardComponent()->SetValueAsBool(TEXT("IsShooting"), false);
 
-				MyMemory->AIController->MoveToLocation(PlayerLocation);	
+				AIController->MoveToLocation(PlayerLocation);
 				return EBTNodeResult::InProgress;
 			}
 			return EBTNodeResult::Succeeded;
@@ -46,23 +45,42 @@ EBTNodeResult::Type UBTTask_MoveToStopShooting::ExecuteTask(UBehaviorTreeCompone
 
 void UBTTask_MoveToStopShooting::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
-	BT_MoveToStopShooting* MyMemory = (BT_MoveToStopShooting*)(NodeMemory);
-	if (!MyMemory->AIController || !MyMemory->AIControlledCharacter)
+	BT_MoveToStopShooting* MyMemory = CastInstanceNodeMemory<BT_MoveToStopShooting>(NodeMemory);
+	if (MyMemory == nullptr)
 	{
 		FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
+		return;
 	}
-
-	FVector PlayerLocation = OwnerComp.GetBlackboardComponent()->GetValueAsVector(GetSelectedBlackboardKey());
-	float DistanceToPlayer = FVector::Dist(MyMemory->AIControlledCharacter->GetActorLocation(), PlayerLocation);
-
-	// GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Distance to player: %f"), DistanceToPlayer));
-	if (DistanceToPlayer <= MyMemory->AcceptanceRadius)
+	AAIController* AIController = OwnerComp.GetAIOwner();
+	if (AIController != nullptr)
 	{
-		MyMemory->AIController->StopMovement();
-		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
+		AShooterCharacter* AICharacter = Cast<AShooterCharacter>(AIController->GetPawn());
+		if (AICharacter != nullptr)
+		{
+			FVector PlayerLocation = OwnerComp.GetBlackboardComponent()->GetValueAsVector(GetSelectedBlackboardKey());
+			// Print AcceptanceRadius
+			// GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Is this node an instance? %s"), bCreateNodeInstance ? TEXT("Yes") : TEXT("No")));
+			// GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Acceptance Radius (Memory): %f"), MyMemory->AcceptanceRadius++));
+			// GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Acceptance Radius: %f"), AcceptanceRadius++));
+			FVector MyLocation = AICharacter->GetActorLocation();
+			float DistanceToPlayer = FVector::Dist(MyLocation, PlayerLocation);
+
+
+			// GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Distance to player: %f"), DistanceToPlayer));
+			if (DistanceToPlayer <= MyMemory->AcceptanceRadius)
+			{
+				AIController->StopMovement();
+				FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
+			}
+			else
+			{
+				AIController->MoveToLocation(PlayerLocation, 0);
+			}
+		}
 	}
-	else
-	{
-		MyMemory->AIController->MoveToLocation(PlayerLocation, 0);
-	}
+}
+
+uint16 UBTTask_MoveToStopShooting::GetInstanceMemorySize() const
+{
+	return sizeof(BT_MoveToStopShooting);
 }
