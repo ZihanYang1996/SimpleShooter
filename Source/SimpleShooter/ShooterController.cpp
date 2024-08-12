@@ -115,5 +115,5 @@ void AShooterController::GameHasEnded(AActor* EndGameFocus, bool bIsWinner)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("GameHasEnded"));
 
-	// GetWorld()->GetTimerManager().SetTimer(RestartTimer, this, &APlayerController::RestartLevel, RestartDelay);
+	GetWorld()->GetTimerManager().SetTimer(RestartTimer, this, &APlayerController::RestartLevel, RestartDelay);
 }
