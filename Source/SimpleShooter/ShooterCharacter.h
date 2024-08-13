@@ -49,6 +49,9 @@ public:
 	UFUNCTION(BlueprintPure)
 	bool IsDead() const;
 
+	UFUNCTION(BlueprintPure)
+	float GetHealthPercentage() const;
+
 private:
 	UPROPERTY(EditAnywhere, Category="Movement")
 	float MoveSpeed = 150.f;

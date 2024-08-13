@@ -123,3 +123,12 @@ bool AShooterCharacter::IsDead() const
 	}
 	return HealthComponent->IsDead();
 }
+
+float AShooterCharacter::GetHealthPercentage() const
+{
+	if (!HealthComponent)
+	{
+		return 0.f;
+	}
+	return HealthComponent->GetHealthPercent();
+}

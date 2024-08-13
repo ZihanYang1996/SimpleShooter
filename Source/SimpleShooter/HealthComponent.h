@@ -28,6 +28,8 @@ public:
 
 	bool IsDead() const;
 
+	float GetHealthPercent() const;
+
 private:
 	UPROPERTY(EditAnywhere, Category="Health")
 	float MaxHealth;

@@ -44,3 +44,8 @@ bool UHealthComponent::IsDead() const
 {
 	return Health <= 0.f;
 }
+
+float UHealthComponent::GetHealthPercent() const
+{
+	return Health / MaxHealth;
+}
