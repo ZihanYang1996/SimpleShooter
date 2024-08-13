@@ -58,6 +58,8 @@ void AGun::SpawnBullet()
 	// Spawn muzzle flash
 	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Mesh, TEXT("MuzzleFlashSocket"));
 
+	UGameplayStatics::SpawnSoundAttached(MuzzleSound, Mesh, TEXT("MuzzleFlashSocket"));
+
 	// Line trace
 	FVector Location;
 	FRotator Rotation;
@@ -95,6 +97,7 @@ void AGun::SpawnBullet()
 		                                       EAttachLocation::KeepWorldPosition);
 		// UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, HitResult.ImpactPoint, ShotDirection.Rotation());
 
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSound, HitResult.ImpactPoint);
 		// Apply damage
 		// UDamageType::StaticClass() or nullptr
 		FPointDamageEvent DamageEvent(Damage, HitResult, ShotDirection, UDamageType::StaticClass());
