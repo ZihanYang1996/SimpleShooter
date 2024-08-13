@@ -40,7 +40,7 @@ private:
 	USkeletalMeshComponent* Mesh;
 
 	UPROPERTY(EditAnywhere)
-	float FireRate = 0.05f;
+	float FireRate = 0.1f;
 
 	UPROPERTY(EditAnywhere)
 	UParticleSystem* MuzzleFlash;
